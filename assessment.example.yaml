@@ -1,0 +1,35 @@
+# Esempio di questionario di autovalutazione compilato per Forseti.
+# Usa "python main.py init" per generare un template vuoto con tutte le
+# domande, oppure copia e modifica questo file per un test rapido.
+
+company_name: "Esempio PMI Srl"
+
+answers:
+  # --- GDPR ---
+  GDPR-01: 3      # registro dei trattamenti tenuto ma non aggiornato da tempo (scale 0-4)
+  GDPR-02: false  # DPO non nominato né valutata la non necessità
+  GDPR-03: true   # basi giuridiche documentate
+  GDPR-04: false  # nessuna procedura di notifica data breach
+  GDPR-05: true   # informativa privacy pubblicata e aggiornata
+  GDPR-06: false  # DPIA non effettuata sui trattamenti ad alto rischio
+  GDPR-07: true   # DPA in essere con i fornitori
+  GDPR-08: true   # procedura diritti interessato presente
+  GDPR-09: 2      # cifratura parziale (solo in transito, non a riposo)
+  GDPR-10: false  # nessuna policy di retention
+  GDPR-11: true
+  GDPR-12: false
+  GDPR-13: true
+
+  # --- NIS2 ---
+  NIS2-01: 2      # analisi dei rischi presente ma datata
+  NIS2-02: true
+  NIS2-03: 1      # piano di DR esistente ma mai testato
+  NIS2-04: false  # supply chain non valutata
+  NIS2-05: true
+  NIS2-06: 3      # MFA quasi ovunque, mancano alcuni accessi remoti
+  NIS2-07: true
+  NIS2-08: false  # nessuna formazione periodica
+  NIS2-09: false  # nessuna procedura di vulnerability disclosure
+  NIS2-10: true
+  NIS2-11: true
+  NIS2-12: false  # nessun penetration test periodico

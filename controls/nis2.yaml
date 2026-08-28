@@ -1,0 +1,206 @@
+# Forseti - Controlli di conformità NIS2 (Direttiva UE 2022/2555)
+#
+# Stesso schema di controls/gdpr.yaml (vedi commento in testa a quel file).
+
+- id: NIS2-01
+  category: "Gestione del rischio"
+  framework: NIS2
+  title: "Analisi dei rischi documentata e aggiornata"
+  description: >
+    L'art. 21 della Direttiva NIS2 richiede misure di gestione dei rischi
+    di cybersicurezza basate su un approccio "all-hazards", fondate su
+    un'analisi del rischio aggiornata.
+  question: "È presente un'analisi dei rischi di cybersicurezza documentata e aggiornata negli ultimi 12 mesi?"
+  answer_type: scale
+  scale_max: 4
+  weight: 15
+  severity: alta
+  remediation: >
+    Effettuare (o aggiornare) una risk assessment strutturata su asset,
+    minacce e vulnerabilità, con revisione almeno annuale o dopo modifiche
+    rilevanti all'infrastruttura.
+
+- id: NIS2-02
+  category: "Gestione incidenti"
+  framework: NIS2
+  title: "Piano di gestione degli incidenti di sicurezza"
+  description: >
+    L'art. 21 NIS2 richiede procedure di gestione degli incidenti,
+    inclusi rilevamento, risposta e ripristino.
+  question: "Esiste un piano documentato di gestione degli incidenti di sicurezza informatica?"
+  answer_type: bool
+  weight: 15
+  severity: alta
+  remediation: >
+    Formalizzare un incident response plan con ruoli, canali di
+    comunicazione, playbook per gli scenari più probabili e un processo di
+    lezioni apprese post-incidente.
+
+- id: NIS2-03
+  category: "Continuità operativa"
+  framework: NIS2
+  title: "Piano di continuità operativa e disaster recovery testato"
+  description: >
+    L'art. 21 NIS2 richiede misure per la continuità operativa, come
+    gestione dei backup, disaster recovery e crisis management, testate
+    periodicamente.
+  question: "Il piano di business continuity/disaster recovery è documentato e testato periodicamente?"
+  answer_type: scale
+  scale_max: 4
+  weight: 15
+  severity: alta
+  remediation: >
+    Redigere un piano di BC/DR con RTO/RPO definiti per i sistemi critici
+    ed effettuare test di ripristino almeno annuali, correggendo le
+    criticità emerse.
+
+- id: NIS2-04
+  category: "Supply chain"
+  framework: NIS2
+  title: "Sicurezza della catena di approvvigionamento"
+  description: >
+    L'art. 21 NIS2 richiede la valutazione della sicurezza della supply
+    chain, inclusi i rapporti con fornitori e provider di servizi diretti.
+  question: "La sicurezza informatica dei fornitori critici viene valutata prima e durante la fornitura?"
+  answer_type: bool
+  weight: 10
+  severity: media
+  remediation: >
+    Introdurre requisiti di sicurezza contrattuali per i fornitori critici
+    e un processo di valutazione periodica (questionari, audit, evidenze
+    di certificazione) del loro livello di sicurezza.
+
+- id: NIS2-05
+  category: "Crittografia"
+  framework: NIS2
+  title: "Politiche di crittografia"
+  description: >
+    L'art. 21 NIS2 cita esplicitamente l'uso della crittografia e, ove
+    opportuno, della cifratura come misura tecnica di sicurezza.
+  question: "Esiste una politica formale sull'uso della crittografia per dati e comunicazioni aziendali?"
+  answer_type: bool
+  weight: 10
+  severity: media
+  remediation: >
+    Definire una policy di crittografia che indichi algoritmi/standard
+    minimi accettati, ambiti di applicazione obbligatoria (dati sensibili,
+    connessioni remote) e responsabilità di gestione delle chiavi.
+
+- id: NIS2-06
+  category: "Controllo accessi"
+  framework: NIS2
+  title: "Autenticazione a più fattori per accessi privilegiati/remoti"
+  description: >
+    L'art. 21 NIS2 richiede, tra le misure minime, l'uso dell'autenticazione
+    a più fattori o di soluzioni di autenticazione continua per l'accesso
+    a sistemi critici, specie da remoto o con privilegi elevati.
+  question: "L'MFA è obbligatoria per tutti gli accessi privilegiati e le connessioni remote?"
+  answer_type: scale
+  scale_max: 4
+  weight: 20
+  severity: alta
+  remediation: >
+    Imporre l'MFA per tutti gli accessi amministrativi, VPN e servizi
+    esposti su internet, dando priorità agli account con privilegi
+    elevati e ai fornitori con accesso remoto.
+
+- id: NIS2-07
+  category: "Gestione asset"
+  framework: NIS2
+  title: "Inventario degli asset IT"
+  description: >
+    Una gestione efficace del rischio (art. 21 NIS2) presuppone la
+    conoscenza completa e aggiornata degli asset IT (hardware, software,
+    dati) da proteggere.
+  question: "Esiste un inventario aggiornato di hardware, software e servizi IT critici?"
+  answer_type: bool
+  weight: 10
+  severity: media
+  remediation: >
+    Implementare un inventario centralizzato degli asset IT (anche un
+    semplice CMDB) con aggiornamento periodico e proprietario assegnato
+    per ogni asset critico.
+
+- id: NIS2-08
+  category: "Formazione"
+  framework: NIS2
+  title: "Formazione periodica del personale sulla sicurezza"
+  description: >
+    L'art. 21 NIS2 richiede pratiche di igiene informatica di base e
+    formazione in materia di cybersicurezza per il personale, inclusi i
+    vertici aziendali.
+  question: "Il personale (inclusi i dirigenti) riceve formazione periodica sulla cybersicurezza?"
+  answer_type: bool
+  weight: 10
+  severity: media
+  remediation: >
+    Pianificare formazione periodica su phishing, igiene delle password e
+    procedure di sicurezza, estendendola esplicitamente al management
+    responsabile dell'approvazione delle misure di sicurezza.
+
+- id: NIS2-09
+  category: "Gestione vulnerabilità"
+  framework: NIS2
+  title: "Procedura di divulgazione delle vulnerabilità"
+  description: >
+    L'art. 21 NIS2 richiede politiche e procedure per la gestione e la
+    divulgazione delle vulnerabilità, in coordinamento con i CSIRT
+    nazionali dove pertinente.
+  question: "Esiste una procedura per ricevere, valutare e correggere segnalazioni di vulnerabilità?"
+  answer_type: bool
+  weight: 10
+  severity: media
+  remediation: >
+    Pubblicare un canale (es. security.txt/email dedicata) per la
+    segnalazione responsabile di vulnerabilità e definire tempistiche
+    interne di valutazione, correzione e comunicazione.
+
+- id: NIS2-10
+  category: "Obblighi di segnalazione"
+  framework: NIS2
+  title: "Segnalazione incidenti significativi all'autorità competente"
+  description: >
+    L'art. 23 NIS2 impone la segnalazione di incidenti significativi al
+    CSIRT/autorità competente con un pre-allarme entro 24 ore e una
+    notifica entro 72 ore dalla conoscenza dell'incidente.
+  question: "Esiste una procedura per segnalare incidenti significativi all'autorità competente nei tempi previsti (24h/72h)?"
+  answer_type: bool
+  weight: 20
+  severity: alta
+  remediation: >
+    Integrare nel piano di incident response i passaggi e i modelli per il
+    pre-allarme (24h), la notifica (72h) e la relazione finale richiesti
+    dall'art. 23 NIS2, con responsabilità chiare su chi effettua la
+    segnalazione.
+
+- id: NIS2-11
+  category: "Controllo accessi"
+  framework: NIS2
+  title: "Politiche di controllo accessi basate sul minimo privilegio"
+  description: >
+    L'art. 21 NIS2 richiede politiche di controllo degli accessi e di
+    gestione degli asset coerenti con il principio del minimo privilegio.
+  question: "Gli accessi ai sistemi sono assegnati secondo il principio del minimo privilegio e revisionati periodicamente?"
+  answer_type: bool
+  weight: 10
+  severity: media
+  remediation: >
+    Rivedere le autorizzazioni assegnate applicando il minimo privilegio
+    necessario, con revisione periodica degli accessi (almeno annuale) e
+    rimozione tempestiva degli account non più necessari.
+
+- id: NIS2-12
+  category: "Verifica della sicurezza"
+  framework: NIS2
+  title: "Test di sicurezza periodici (vulnerability assessment / penetration test)"
+  description: >
+    L'art. 21 NIS2 richiede la valutazione dell'efficacia delle misure di
+    gestione del rischio, anche tramite verifiche tecniche periodiche.
+  question: "Vengono eseguiti vulnerability assessment o penetration test periodici sui sistemi critici?"
+  answer_type: bool
+  weight: 10
+  severity: media
+  remediation: >
+    Pianificare vulnerability assessment periodici (almeno annuali) e
+    penetration test sui sistemi esposti o critici, tracciando la
+    remediation delle criticità riscontrate.

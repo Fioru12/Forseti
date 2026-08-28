@@ -1,0 +1,232 @@
+# Forseti - Controlli di conformità GDPR (Regolamento UE 2016/679)
+#
+# Ogni controllo ha:
+#   id             identificativo univoco
+#   category       area tematica del controllo
+#   framework      GDPR (fisso in questo file)
+#   title          titolo breve
+#   description    descrizione estesa del requisito normativo
+#   question       domanda di autovalutazione da porre all'utente
+#   answer_type    "bool" (si/no) oppure "scale" (0-4, livello di maturita')
+#   scale_max      presente solo se answer_type è "scale" (default 4)
+#   weight         peso del controllo nello score (quanto pesa se non soddisfatto)
+#   severity       etichetta di severita' (alta/media/bassa) usata nel report
+#   remediation    suggerimento di rimedio testuale
+
+- id: GDPR-01
+  category: "Registro dei trattamenti"
+  framework: GDPR
+  title: "Registro delle attività di trattamento"
+  description: >
+    L'art. 30 GDPR richiede la tenuta di un registro delle attività di
+    trattamento, aggiornato, che descriva finalità, categorie di dati,
+    categorie di interessati, destinatari e tempi di conservazione.
+  question: "Il registro dei trattamenti (art. 30) è tenuto e aggiornato negli ultimi 12 mesi?"
+  answer_type: scale
+  scale_max: 4
+  weight: 15
+  severity: alta
+  remediation: >
+    Redigere o aggiornare il registro dei trattamenti includendo tutte le
+    attività attive, nominare un responsabile interno per il suo
+    aggiornamento periodico e fissare una revisione almeno annuale.
+
+- id: GDPR-02
+  category: "Governance privacy"
+  framework: GDPR
+  title: "Nomina del DPO (se richiesta)"
+  description: >
+    L'art. 37 GDPR impone la nomina di un Data Protection Officer per
+    autorità pubbliche o per trattamenti su larga scala/dati particolari.
+    Se non richiesto, va comunque documentata l'analisi di non necessità.
+  question: "È stato nominato un DPO (o è stata documentata formalmente la non necessità)?"
+  answer_type: bool
+  weight: 10
+  severity: media
+  remediation: >
+    Valutare la necessità di nominare un DPO in base a natura, ambito e
+    finalità dei trattamenti; se non necessario, documentare l'analisi
+    svolta e conservarla come evidenza di accountability.
+
+- id: GDPR-03
+  category: "Liceità del trattamento"
+  framework: GDPR
+  title: "Base giuridica documentata per ogni trattamento"
+  description: >
+    L'art. 6 GDPR richiede che ogni trattamento abbia una base giuridica
+    identificata (consenso, contratto, obbligo legale, interesse legittimo,
+    ecc.) e documentata.
+  question: "Per ogni trattamento censito è documentata una base giuridica ai sensi dell'art. 6?"
+  answer_type: bool
+  weight: 15
+  severity: alta
+  remediation: >
+    Per ciascuna voce del registro dei trattamenti, indicare esplicitamente
+    la base giuridica applicabile e conservarne la motivazione scritta,
+    incluse eventuali basi alternative valutate e scartate.
+
+- id: GDPR-04
+  category: "Data breach"
+  framework: GDPR
+  title: "Procedura di notifica data breach entro 72 ore"
+  description: >
+    L'art. 33 GDPR impone la notifica al Garante entro 72 ore dalla
+    conoscenza di una violazione di dati personali, salvo che sia
+    improbabile un rischio per i diritti degli interessati.
+  question: "Esiste una procedura documentata e testata per notificare un data breach entro 72 ore?"
+  answer_type: bool
+  weight: 20
+  severity: alta
+  remediation: >
+    Definire una procedura scritta di incident response privacy con ruoli,
+    tempistiche e modulistica per la notifica al Garante e, se necessario,
+    agli interessati; effettuare almeno un test/simulazione annuale.
+
+- id: GDPR-05
+  category: "Trasparenza"
+  framework: GDPR
+  title: "Informativa privacy pubblicata e aggiornata"
+  description: >
+    Gli artt. 13-14 GDPR richiedono di fornire agli interessati informative
+    chiare e aggiornate su finalità, base giuridica, conservazione e diritti.
+  question: "L'informativa privacy è pubblicata, aggiornata e coerente con i trattamenti effettivi?"
+  answer_type: bool
+  weight: 10
+  severity: media
+  remediation: >
+    Revisionare le informative privacy (sito web, dipendenti, clienti,
+    fornitori) allineandole ai trattamenti realmente in essere e
+    pubblicarle in modo facilmente accessibile.
+
+- id: GDPR-06
+  category: "Valutazione d'impatto"
+  framework: GDPR
+  title: "DPIA per trattamenti ad alto rischio"
+  description: >
+    L'art. 35 GDPR richiede una valutazione d'impatto sulla protezione dei
+    dati (DPIA) quando un trattamento presenta un rischio elevato per i
+    diritti e le libertà delle persone fisiche.
+  question: "Per i trattamenti ad alto rischio è stata effettuata una DPIA?"
+  answer_type: bool
+  weight: 15
+  severity: alta
+  remediation: >
+    Identificare i trattamenti ad alto rischio (es. videosorveglianza
+    diffusa, profilazione, dati particolari su larga scala) ed effettuare
+    una DPIA documentata, consultando il DPO se presente.
+
+- id: GDPR-07
+  category: "Responsabili del trattamento"
+  framework: GDPR
+  title: "Accordi con i responsabili del trattamento (DPA)"
+  description: >
+    L'art. 28 GDPR richiede un accordo scritto (Data Processing Agreement)
+    con ogni fornitore che tratta dati personali per conto del titolare.
+  question: "Con tutti i fornitori/data processor è in essere un DPA conforme all'art. 28?"
+  answer_type: bool
+  weight: 15
+  severity: alta
+  remediation: >
+    Censire tutti i fornitori che trattano dati personali per conto
+    dell'azienda e sottoscrivere/aggiornare un DPA conforme all'art. 28 per
+    ciascuno di essi.
+
+- id: GDPR-08
+  category: "Diritti dell'interessato"
+  framework: GDPR
+  title: "Procedura per l'esercizio dei diritti dell'interessato"
+  description: >
+    Gli artt. 15-22 GDPR riconoscono diritti quali accesso, rettifica,
+    cancellazione, portabilità e opposizione, da evadere entro un mese.
+  question: "Esiste una procedura per gestire ed evadere le richieste degli interessati (inclusa la cancellazione)?"
+  answer_type: bool
+  weight: 10
+  severity: media
+  remediation: >
+    Definire un canale dedicato e una procedura interna con tempistiche
+    (max 1 mese, prorogabile) per rispondere alle richieste di accesso,
+    rettifica, cancellazione e portabilità dei dati.
+
+- id: GDPR-09
+  category: "Sicurezza dei dati"
+  framework: GDPR
+  title: "Cifratura dei dati personali a riposo e in transito"
+  description: >
+    L'art. 32 GDPR richiede misure tecniche adeguate, tra cui la cifratura,
+    per garantire la sicurezza dei dati personali trattati.
+  question: "I dati personali sono cifrati a riposo (storage/DB) e in transito (TLS)?"
+  answer_type: scale
+  scale_max: 4
+  weight: 15
+  severity: alta
+  remediation: >
+    Attivare la cifratura at-rest per database e storage contenenti dati
+    personali e imporre TLS per ogni comunicazione che li trasporta;
+    gestire le chiavi con un processo documentato.
+
+- id: GDPR-10
+  category: "Conservazione dei dati"
+  framework: GDPR
+  title: "Politica di retention e cancellazione dati"
+  description: >
+    L'art. 5.1.e GDPR (limitazione della conservazione) richiede di non
+    conservare i dati personali oltre il tempo necessario alle finalità
+    dichiarate.
+  question: "Esiste una politica di retention che definisce tempi di conservazione e cancellazione dei dati?"
+  answer_type: bool
+  weight: 10
+  severity: media
+  remediation: >
+    Definire per ciascuna categoria di dati un periodo di conservazione
+    massimo e un processo (anche automatizzato) di cancellazione o
+    anonimizzazione al termine del periodo.
+
+- id: GDPR-11
+  category: "Privacy by design"
+  framework: GDPR
+  title: "Privacy by design e by default"
+  description: >
+    L'art. 25 GDPR richiede che la protezione dei dati sia integrata fin
+    dalla progettazione di sistemi e processi, con impostazioni di default
+    privacy-friendly.
+  question: "I nuovi progetti/sistemi vengono valutati per impatti privacy fin dalla fase di progettazione?"
+  answer_type: bool
+  weight: 5
+  severity: bassa
+  remediation: >
+    Introdurre un checkpoint privacy nel processo di sviluppo/procurement
+    di nuovi sistemi, con configurazioni di default che minimizzano la
+    raccolta e la conservazione dei dati personali.
+
+- id: GDPR-12
+  category: "Formazione"
+  framework: GDPR
+  title: "Formazione periodica del personale sulla privacy"
+  description: >
+    L'accountability richiesta dal GDPR (art. 5.2) presuppone che il
+    personale che tratta dati personali sia formato sugli obblighi e sulle
+    procedure interne.
+  question: "Il personale riceve formazione periodica in materia di protezione dei dati personali?"
+  answer_type: bool
+  weight: 5
+  severity: bassa
+  remediation: >
+    Pianificare sessioni di formazione privacy almeno annuali per tutto il
+    personale che tratta dati personali, con evidenza di partecipazione.
+
+- id: GDPR-13
+  category: "Data breach"
+  framework: GDPR
+  title: "Registro delle violazioni di dati personali"
+  description: >
+    L'art. 33.5 GDPR richiede di documentare tutte le violazioni di dati
+    personali, comprese quelle non notificate al Garante, con fatti,
+    effetti e misure adottate.
+  question: "È tenuto un registro interno di tutte le violazioni di dati personali (anche non notificate)?"
+  answer_type: bool
+  weight: 10
+  severity: media
+  remediation: >
+    Istituire un registro interno delle violazioni di dati personali che
+    documenti data, natura, effetti e misure correttive per ogni evento,
+    indipendentemente dall'obbligo di notifica al Garante.
