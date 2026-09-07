@@ -1,0 +1,48 @@
+# Forseti - Controlli di conformità DORA (Digital Operational Resilience Act - Regolamento UE 2022/2554)
+
+- id: DORA-01
+  category: "Gestione del Rischio TIC"
+  framework: DORA
+  title: "Quadro di gestione del rischio informatico e TIC"
+  description: >
+    L'Art. 6 del Regolamento DORA impone un quadro di gestione del rischio TIC
+    (Tecnologie dell'Informazione e della Comunicazione) documentato e aggiornato.
+  question: "È definito e documentato un quadro formale di gestione del rischio TIC dell'organizzazione?"
+  answer_type: bool
+  weight: 15
+  severity: alta
+  remediation: >
+    Stabilire una politica per la gestione dei rischi TIC, definire ruoli di
+    supervisione e revisionare il quadro almeno annualmente.
+
+- id: DORA-02
+  category: "Gestione Incidenti TIC"
+  framework: DORA
+  title: "Classificazione e notifica tempestiva degli incidenti TIC gravi"
+  description: >
+    L'Art. 17-19 DORA richiede criteri di classificazione degli incidenti TIC
+    e la notifica tempestiva alle autorità competenti entro i termini stabiliti.
+  question: "Esistono criteri di classificazione degli incidenti TIC e procedure per la notifica tempestiva?"
+  answer_type: scale
+  scale_max: 4
+  weight: 15
+  severity: alta
+  remediation: >
+    Definire la soglia di criticità degli incidenti TIC e impostare workflow
+    di notifica iniziale e report finale verso l'autorità di vigilanza.
+
+- id: DORA-03
+  category: "Test di Resilienza"
+  framework: DORA
+  title: "Programma di test di resilienza operativa digitale"
+  description: >
+    L'Art. 24 DORA richiede che i sistemi TIC siano sottoposti a test periodici
+    di resilienza (vulnerability assessment, penetration testing).
+  question: "Vengono effettuati test di sicurezza e vulnerabilità sui sistemi TIC critici almeno una volta all'anno?"
+  answer_type: scale
+  scale_max: 4
+  weight: 12
+  severity: media
+  remediation: >
+    Pianificare ed eseguire vulnerability scan e test di penetrazione annuali
+    sugli ambienti e sui servizi informatici critici.

@@ -15,6 +15,8 @@ if hasattr(sys.stdout, "reconfigure"):
 DEFAULT_CONTROL_FILES = [
     os.path.join(os.path.dirname(__file__), "controls", "gdpr.yaml"),
     os.path.join(os.path.dirname(__file__), "controls", "nis2.yaml"),
+    os.path.join(os.path.dirname(__file__), "controls", "dora.yaml"),
+    os.path.join(os.path.dirname(__file__), "controls", "iso27001.yaml"),
 ]
 
 
@@ -120,6 +122,16 @@ def cmd_assess(args):
         sys.exit(1)
 
 
+def cmd_serve(args):
+    """Avvia l'interfaccia web (questionario compilabile da browser)."""
+    import uvicorn
+
+    _print_header()
+    print(f"{Colors.CYAN}[*]{Colors.ENDC} Interfaccia web su http://{args.host}:{args.port}")
+    print(f"{Colors.CYAN}[*]{Colors.ENDC} Apri quell'indirizzo in un browser per compilare il questionario.")
+    uvicorn.run("api.server:app", host=args.host, port=args.port, reload=args.reload)
+
+
 def build_parser():
     parser = argparse.ArgumentParser(
         description="Forseti: Compliance Checker GDPR/NIS2 per PMI"
@@ -153,6 +165,11 @@ def build_parser():
     )
     init_parser.add_argument("--force", action="store_true", help="Sovrascrive il file di output se già esistente")
 
+    serve_parser = subparsers.add_parser("serve", help="Avvia l'interfaccia web del questionario")
+    serve_parser.add_argument("--host", default="127.0.0.1")
+    serve_parser.add_argument("--port", type=int, default=8091)
+    serve_parser.add_argument("--reload", action="store_true", help="Auto-reload (sviluppo)")
+
     return parser
 
 
@@ -164,6 +181,8 @@ def main():
         cmd_assess(args)
     elif args.command == "init":
         cmd_init(args)
+    elif args.command == "serve":
+        cmd_serve(args)
     else:
         parser.print_help()
 

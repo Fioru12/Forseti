@@ -10,6 +10,8 @@ from core.reporter import ComplianceReporter
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 GDPR_CONTROLS = os.path.join(REPO_ROOT, "controls", "gdpr.yaml")
 NIS2_CONTROLS = os.path.join(REPO_ROOT, "controls", "nis2.yaml")
+DORA_CONTROLS = os.path.join(REPO_ROOT, "controls", "dora.yaml")
+ISO27001_CONTROLS = os.path.join(REPO_ROOT, "controls", "iso27001.yaml")
 
 
 # ----------------------------------------------------------------------
@@ -87,11 +89,24 @@ def test_load_real_nis2_controls():
         assert control["framework"] == "NIS2"
 
 
-def test_load_both_frameworks_combined():
-    assessor = ComplianceAssessor([GDPR_CONTROLS, NIS2_CONTROLS])
+def test_load_real_dora_controls():
+    assessor = ComplianceAssessor([DORA_CONTROLS])
+    assert len(assessor.controls) >= 3
+    for control in assessor.controls.values():
+        assert control["framework"] == "DORA"
+
+
+def test_load_real_iso27001_controls():
+    assessor = ComplianceAssessor([ISO27001_CONTROLS])
+    assert len(assessor.controls) >= 3
+    for control in assessor.controls.values():
+        assert control["framework"] == "ISO27001"
+
+
+def test_load_all_frameworks_combined():
+    assessor = ComplianceAssessor([GDPR_CONTROLS, NIS2_CONTROLS, DORA_CONTROLS, ISO27001_CONTROLS])
     frameworks = {c["framework"] for c in assessor.controls.values()}
-    assert frameworks == {"GDPR", "NIS2"}
-    assert len(assessor.controls) >= 20
+    assert frameworks == {"GDPR", "NIS2", "DORA", "ISO27001"}
 
 
 def test_load_small_controls_fixture(small_controls):

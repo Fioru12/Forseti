@@ -24,7 +24,7 @@ REQUIRED_FIELDS = [
 ]
 
 VALID_ANSWER_TYPES = ("bool", "scale")
-VALID_FRAMEWORKS = ("GDPR", "NIS2")
+VALID_FRAMEWORKS = ("GDPR", "NIS2", "DORA", "ISO27001")
 
 
 class ControlLoadError(ValueError):

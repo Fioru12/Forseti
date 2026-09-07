@@ -1,0 +1,48 @@
+# Forseti - Controlli di conformità ISO/IEC 27001:2022 (Controlli A.5.24 - A.5.28)
+
+- id: ISO27001-01
+  category: "Gestione degli Incidenti di Sicurezza (A.5.24)"
+  framework: ISO27001
+  title: "Pianificazione e preparazione alla gestione degli incidenti"
+  description: >
+    Il controllo A.5.24 richiede la pianificazione e la preparazione della gestione
+    degli incidenti di sicurezza delle informazioni per garantire una risposta efficace.
+  question: "L'organizzazione ha stabilito e documentato processi di gestione degli incidenti conforme ad A.5.24?"
+  answer_type: bool
+  weight: 12
+  severity: alta
+  remediation: >
+    Pianificare le procedure di rilevamento, triage e risposta agli incidenti,
+    assegnando ruoli e responsabilità chiare.
+
+- id: ISO27001-02
+  category: "Valutazione e Decisione sugli Eventi (A.5.25)"
+  framework: ISO27001
+  title: "Valutazione e decisione sugli eventi di sicurezza"
+  description: >
+    Il controllo A.5.25 richiede che l'organizzazione valuti gli eventi di sicurezza
+    per decidere se debbano essere classificati come incidenti di sicurezza.
+  question: "È definito un processo di triaging per valutare gli eventi di sicurezza e identificarne la criticità?"
+  answer_type: scale
+  scale_max: 4
+  weight: 10
+  severity: media
+  remediation: >
+    Fornire all'analisi di sicurezza criteri chiari per classificare gli alert
+    provenienti da HIDS, scanner e log di sistema.
+
+- id: ISO27001-03
+  category: "Risposta agli Incidenti (A.5.26)"
+  framework: ISO27001
+  title: "Procedure di risposta e contenimento degli incidenti"
+  description: >
+    Il controllo A.5.26 richiede che l'organizzazione risponda agli incidenti di
+    sicurezza secondo procedure documentate per contenerne l'impatto.
+  question: "Le risposte agli incidenti (contenimento, mitigazione) sono guidate da playbook procedurali documentati?"
+  answer_type: scale
+  scale_max: 4
+  weight: 15
+  severity: alta
+  remediation: >
+    Automatizzare o documentare le azioni di contenimento (es. isolamento host,
+    blocco IP, revoca token).
