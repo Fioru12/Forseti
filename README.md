@@ -20,7 +20,7 @@
 
 Forseti **fa**:
 
-- Carica una base di **25 controlli** di conformità reali e riconoscibili (13 GDPR + 12 NIS2), ciascuno con descrizione normativa, domanda di autovalutazione e suggerimento di rimedio.
+- Carica una base di **41 controlli** di conformità reali e riconoscibili (13 GDPR + 12 NIS2 + 8 DORA + 8 ISO27001), ciascuno con descrizione normativa, domanda di autovalutazione e suggerimento di rimedio.
 - Calcola uno **score 0-100 per framework** (GDPR e NIS2 separati) e uno **score combinato**, a partire dalle risposte di un questionario YAML compilato dall'utente.
 - Produce l'elenco dei **gap** (controlli non pienamente soddisfatti), ordinati per severità/peso, con remediation testuale per ciascuno.
 - Genera un **report Markdown** leggibile e condivisibile.
@@ -56,13 +56,13 @@ Il comando `assess` stampa a schermo lo score combinato, lo score per framework 
 
 ## Come sono strutturati i controlli
 
-I controlli vivono in `controls/gdpr.yaml` e `controls/nis2.yaml`. Ogni controllo ha:
+I controlli vivono in `controls/gdpr.yaml`, `controls/nis2.yaml`, `controls/dora.yaml` e `controls/iso27001.yaml`. Ogni controllo ha:
 
 | Campo | Significato |
 |---|---|
 | `id` | Identificativo univoco (es. `GDPR-04`, `NIS2-10`) |
 | `category` | Area tematica (es. "Data breach", "Controllo accessi") |
-| `framework` | `GDPR` o `NIS2` |
+| `framework` | `GDPR`, `NIS2`, `DORA` o `ISO27001` |
 | `title` / `description` | Titolo e riferimento normativo del requisito |
 | `question` | Domanda di autovalutazione |
 | `answer_type` | `bool` (sì/no) oppure `scale` (0-`scale_max`, livello di maturità) |
@@ -74,6 +74,10 @@ I controlli vivono in `controls/gdpr.yaml` e `controls/nis2.yaml`. Ogni controll
 
 **Controlli NIS2 inclusi (12)**: analisi dei rischi, piano di gestione incidenti, continuità operativa/DR testato, sicurezza supply chain, politiche di crittografia, MFA su accessi privilegiati/remoti, inventario asset IT, formazione periodica, procedura di vulnerability disclosure, segnalazione incidenti all'autorità (24h/72h), controllo accessi a minimo privilegio, test di sicurezza periodici.
 
+**Controlli DORA inclusi (8)**: quadro di gestione del rischio TIC, classificazione e notifica incidenti, test di resilienza, backup e ripristino, segmentazione di rete, MFA e accessi privilegiati, logging e monitoraggio, censimento fornitori ICT critici.
+
+**Controlli ISO27001 inclusi (8, area A.5/A.8)**: gestione incidenti (A.5.24–A.5.26), lesson learned (A.5.27), continuità e prontezza ICT (A.5.29–A.5.30), backup (A.8.13), logging (A.8.15).
+
 ---
 
 ## Come funziona lo scoring (`core/assessor.py`)
@@ -81,7 +85,7 @@ I controlli vivono in `controls/gdpr.yaml` e `controls/nis2.yaml`. Ogni controll
 - Ogni controllo `bool` vale `weight` punti se la risposta è `true`, `0` altrimenti.
 - Ogni controllo `scale` vale `weight * (valore / scale_max)` punti (i valori fuori range vengono limitati a `[0, scale_max]`).
 - Lo **score per framework** è la somma dei punti ottenuti diviso la somma dei pesi massimi di quel framework, in percentuale.
-- Lo **score combinato** è calcolato allo stesso modo sull'insieme di tutti i controlli di entrambi i framework.
+- Lo **score combinato** è calcolato allo stesso modo sull'insieme di tutti i controlli caricati.
 - Un controllo con punteggio inferiore al proprio peso massimo genera un **gap**, riportato con percentuale di conformità e remediation.
 - Un id di risposta non presente tra i controlli caricati viene **ignorato con un warning**, senza interrompere l'esecuzione.
 - Un id di controllo senza risposta nel questionario viene trattato come **non soddisfatto** (0 punti).
