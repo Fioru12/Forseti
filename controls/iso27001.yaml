@@ -46,3 +46,81 @@
   remediation: >
     Automatizzare o documentare le azioni di contenimento (es. isolamento host,
     blocco IP, revoca token).
+
+- id: ISO27001-04
+  category: "Apprendimento dagli Incidenti (A.5.27)"
+  framework: ISO27001
+  title: "Analisi post-incidente e lesson learned"
+  description: >
+    Il controllo A.5.27 richiede che l'organizzazione analizzi gli incidenti
+    di sicurezza per trarne insegnamenti e migliorare le difese.
+  question: "Dopo ogni incidente rilevante viene svolta un'analisi delle cause con azioni correttive tracciate?"
+  answer_type: scale
+  scale_max: 4
+  weight: 10
+  severity: media
+  remediation: >
+    Introdurre un template di post-mortem (timeline, causa radice, azioni)
+    e riesaminarlo nelle riunioni periodiche di sicurezza.
+
+- id: ISO27001-05
+  category: "Continuità (A.5.29)"
+  framework: ISO27001
+  title: "Sicurezza delle informazioni durante le interruzioni"
+  description: >
+    Il controllo A.5.29 richiede che la sicurezza delle informazioni sia
+    garantita anche durante interruzioni operative o disastri.
+  question: "Il piano di continuità operativa copre la protezione di dati e accessi durante un'interruzione?"
+  answer_type: bool
+  weight: 12
+  severity: alta
+  remediation: >
+    Integrare nel piano di continuità ruoli, comunicazioni alternative e
+    procedure di accesso d'emergenza, e testarlo annualmente.
+
+- id: ISO27001-06
+  category: "Prontezza ICT (A.5.30)"
+  framework: ISO27001
+  title: "Prontezza ICT per la continuità operativa"
+  description: >
+    Il controllo A.5.30 richiede che le risorse ICT necessarie alla
+    continuità siano identificate, mantenute e verificate.
+  question: "I sistemi ICT di continuità (backup, siti alternativi) sono identificati e verificati periodicamente?"
+  answer_type: scale
+  scale_max: 4
+  weight: 10
+  severity: media
+  remediation: >
+    Elencare i sistemi ICT critici per la continuità e pianificare test
+    di failover con esiti documentati.
+
+- id: ISO27001-07
+  category: "Backup (A.8.13)"
+  framework: ISO27001
+  title: "Backup delle informazioni e test di ripristino"
+  description: >
+    Il controllo A.8.13 richiede backup regolari delle informazioni con
+    test periodici di ripristino conformi alla policy di backup.
+  question: "I backup sono eseguiti secondo una policy definita e il ripristino è testato?"
+  answer_type: bool
+  weight: 12
+  severity: alta
+  remediation: >
+    Formalizzare la policy di backup (frequenza, retention, cifratura) e
+    registrare l'esito di ogni test di ripristino.
+
+- id: ISO27001-08
+  category: "Logging (A.8.15)"
+  framework: ISO27001
+  title: "Registrazione degli eventi di sicurezza"
+  description: >
+    Il controllo A.8.15 richiede la registrazione di eventi rilevanti per
+    la sicurezza (accessi, modifiche, allarmi) con conservazione adeguata.
+  question: "Gli eventi di sicurezza (login, modifiche config, allarmi) sono registrati e conservati?"
+  answer_type: scale
+  scale_max: 4
+  weight: 10
+  severity: media
+  remediation: >
+    Definire quali eventi registrare, dove centralizzarli e per quanto
+    conservarli, in linea con gli obblighi di legge applicabili.

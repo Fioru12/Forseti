@@ -46,3 +46,85 @@
   remediation: >
     Pianificare ed eseguire vulnerability scan e test di penetrazione annuali
     sugli ambienti e sui servizi informatici critici.
+
+- id: DORA-04
+  category: "Resilienza e Continuità"
+  framework: DORA
+  title: "Politiche di backup e ripristino dei sistemi TIC critici"
+  description: >
+    Gli Artt. 11-12 DORA richiedono politiche di backup e procedure di
+    ripristino dei sistemi TIC che supportano funzioni critiche, con test
+    periodici di ripristino.
+  question: "Esistono backup regolari dei sistemi TIC critici, con procedure di ripristino testate?"
+  answer_type: bool
+  weight: 14
+  severity: alta
+  remediation: >
+    Definire frequenza di backup, responsabilità e finestre di ripristino
+    (RTO/RPO) per ogni sistema critico, e testare il ripristino almeno
+    una volta all'anno.
+
+- id: DORA-05
+  category: "Sicurezza delle Reti"
+  framework: DORA
+  title: "Segmentazione e protezione delle reti TIC"
+  description: >
+    L'Art. 9 DORA richiede misure di sicurezza delle reti, incluse
+    segmentazione, firewall e protezione dei trasferimenti di dati.
+  question: "Le reti TIC sono segmentate (es. separazione tra rete operativa e uffici) e protette da firewall?"
+  answer_type: scale
+  scale_max: 4
+  weight: 12
+  severity: media
+  remediation: >
+    Mappare la rete, separare i segmenti critici e verificare le regole
+    firewall con scansioni periodiche (es. report Bifrost come evidenza).
+
+- id: DORA-06
+  category: "Controllo degli Accessi"
+  framework: DORA
+  title: "MFA e gestione degli accessi privilegiati sui sistemi TIC"
+  description: >
+    L'Art. 9 DORA richiede controlli di accesso rigorosi sui sistemi TIC,
+    con autenticazione rafforzata per gli account privilegiati.
+  question: "Gli account amministrativi dei sistemi critici richiedono MFA e sono riesaminati periodicamente?"
+  answer_type: scale
+  scale_max: 4
+  weight: 14
+  severity: alta
+  remediation: >
+    Abilitare la MFA su tutti gli account admin, ridurre i privilegi al
+    minimo necessario e riesaminare gli accessi ogni 90 giorni
+    (es. audit Yggdrasil come evidenza).
+
+- id: DORA-07
+  category: "Rilevamento e Monitoraggio"
+  framework: DORA
+  title: "Logging e monitoraggio continuo degli eventi TIC"
+  description: >
+    Gli Artt. 10-11 DORA richiedono capacità di rilevamento delle anomalie
+    TIC tramite raccolta e analisi dei log di sicurezza.
+  question: "I log di sicurezza dei sistemi critici sono raccolti e riesaminati regolarmente?"
+  answer_type: scale
+  scale_max: 4
+  weight: 12
+  severity: media
+  remediation: >
+    Centralizzare i log (es. monitoraggio Heimdall + alerting Gjallarhorn)
+    e definire soglie di allarme con responsabili assegnati.
+
+- id: DORA-08
+  category: "Rischio Fornitori ICT"
+  framework: DORA
+  title: "Censimento e valutazione dei fornitori ICT critici"
+  description: >
+    Gli Artt. 28-30 DORA richiedono la gestione del rischio dei fornitori
+    ICT terzi, con contratti che definiscano livelli di servizio e diritti
+    di audit.
+  question: "Esiste un elenco dei fornitori ICT critici con contratti che definiscono sicurezza e SLA?"
+  answer_type: bool
+  weight: 10
+  severity: media
+  remediation: >
+    Censire i fornitori ICT, classificarli per criticità e integrare nei
+    contratti clausole di sicurezza, notifica incidenti e diritto di audit.
