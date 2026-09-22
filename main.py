@@ -99,9 +99,19 @@ def cmd_assess(args):
     answers = data.get("answers", {}) if isinstance(data, dict) else {}
     company_name = data.get("company_name", "Azienda") if isinstance(data, dict) else "Azienda"
 
+    evidence = {}
+    if not getattr(args, "no_evidence", False):
+        try:
+            from core.evidence import collect_evidence
+            evidence = collect_evidence(getattr(args, "asgard_root", None))
+            ok_sources = [k for k, v in evidence.items() if isinstance(v, dict) and "error" not in v]
+            print(f"{Colors.CYAN}[*]{Colors.ENDC} Evidence automatiche: {', '.join(ok_sources) or 'nessuna (DB moduli assenti)'}")
+        except Exception as exc:
+            print(f"{Colors.WARNING}[WARN]{Colors.ENDC} Evidence non raccolte: {exc}")
+
     with warnings.catch_warnings(record=True) as caught:
         warnings.simplefilter("always")
-        result = assessor.assess(answers)
+        result = assessor.assess(answers, evidence=evidence)
         for w in caught:
             print(f"{Colors.WARNING}[WARN]{Colors.ENDC} {w.message}")
 
@@ -153,6 +163,16 @@ def build_parser():
         default=None,
         metavar="SCORE",
         help="Esce con status 1 se lo score combinato è inferiore a SCORE (utile in CI/CD)",
+    )
+    assess_parser.add_argument(
+        "--asgard-root",
+        default=None,
+        help="Root della suite per le evidence automatiche (default: autonoma)",
+    )
+    assess_parser.add_argument(
+        "--no-evidence",
+        action="store_true",
+        help="Disabilita la raccolta evidence dai DB dei moduli",
     )
 
     init_parser = subparsers.add_parser("init", help="Genera un template assessment.yaml da compilare")

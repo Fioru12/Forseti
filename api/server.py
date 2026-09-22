@@ -84,7 +84,12 @@ async def assess(request: Request):
 
     with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")
-        result = assessor.assess(answers)
+        try:
+            from core.evidence import collect_evidence
+            evidence = collect_evidence()
+        except Exception:
+            evidence = {}
+        result = assessor.assess(answers, evidence=evidence)
 
     _last_report["result"] = result
     _last_report["company_name"] = company_name
