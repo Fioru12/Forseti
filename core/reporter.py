@@ -72,6 +72,28 @@ class ComplianceReporter:
                     f"**{g['title']}** (`{g['id']}`) | {g['compliance_pct']}% | {g['remediation'].strip()} |"
                 )
 
+        evidence = result.get("evidence") or {}
+        sources = {k: v for k, v in evidence.items() if k != "collected_at"}
+        if sources:
+            lines.append("")
+            lines.append("---")
+            lines.append("")
+            lines.append("## Evidence automatiche dai moduli")
+            lines.append("")
+            lines.append(f"_Raccolte il `{evidence.get('collected_at', 'N/D')}` dagli store SQLite locali. "
+                        "Sono metriche tecniche reali, non sostituiscono le risposte al questionario._")
+            lines.append("")
+            lines.append("| Sorgente | Metrica | Valore |")
+            lines.append("|:---|:---|---:|")
+            for source in sorted(sources):
+                data = sources[source]
+                if isinstance(data, dict) and "error" not in data:
+                    for metric in sorted(data):
+                        lines.append(f"| {source} | {metric} | {data[metric]} |")
+                else:
+                    detail = data.get("error", data) if isinstance(data, dict) else data
+                    lines.append(f"| {source} | _non disponibile_ | `{detail}` |")
+
         lines.append("")
         lines.append("---")
         lines.append("*Generato da Forseti - Compliance Checker GDPR/NIS2 - Asgard Suite*")

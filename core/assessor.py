@@ -144,13 +144,15 @@ class ComplianceAssessor:
         value = max(0.0, min(scale_max, value))
         return weight * (value / scale_max)
 
-    def assess(self, answers: Dict[str, Any]) -> Dict[str, Any]:
+    def assess(self, answers: Dict[str, Any], evidence: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """
         Calcola lo score di conformità a partire dalle risposte fornite.
 
         answers: dict {control_id: risposta}. Risposte con id sconosciuto
         (non presenti tra i controlli caricati) vengono ignorate con un
         warning, non causano un errore.
+        evidence: dict opzionale da core.evidence.collect_evidence(), allegato
+        tal quale al risultato per il report (metriche tecniche reali).
         """
         unknown_ids = [cid for cid in answers if cid not in self.controls]
         for cid in unknown_ids:
@@ -208,6 +210,7 @@ class ComplianceAssessor:
             "gaps": gaps,
             "total_controls": len(self.controls),
             "unknown_ids": unknown_ids,
+            "evidence": evidence or {},
         }
 
     def all_controls(self) -> List[Dict[str, Any]]:
